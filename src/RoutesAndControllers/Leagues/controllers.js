@@ -1,4 +1,4 @@
-const { League } = require("../../db/models/League.js");
+const { League } = require("../../db/models");
 
 exports.fetchLeague = async (leagueID, next) => {
   try {

@@ -1,4 +1,4 @@
-const { Player } = require("../../db/models/Player.js");
+const { Player } = require("../../db/models");
 
 exports.fetchPlayer = async (playerID, next) => {
   try {
