@@ -1,9 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-  const Leagues = sequelize.define("Leagues", {
+  const League = sequelize.define("League", {
+    leagueID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-
     region: {
       type: DataTypes.STRING,
     },
@@ -14,5 +19,5 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
   });
-  return Leagues;
+  return League;
 };

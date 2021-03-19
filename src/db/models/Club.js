@@ -1,9 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-  const Clubs = sequelize.define("Clubs", {
+  const Club = sequelize.define("Club", {
+    clubID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-
     location: {
       type: DataTypes.STRING,
     },
@@ -14,5 +19,5 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
   });
-  return Clubs;
+  return Club;
 };
