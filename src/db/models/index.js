@@ -43,4 +43,12 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// Databases relations
+db.Club.hasMany(db.Player, {
+  foreignKey: "clubID",
+});
+// db.Player.hasOne(db.Club, {
+//   foreignKey: "playerID",
+// });
+
 module.exports = db;

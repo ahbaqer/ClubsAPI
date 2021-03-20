@@ -1,4 +1,4 @@
-const { Player } = require("../../db/models");
+const { Player, Club } = require("../../db/models");
 
 exports.fetchPlayer = async (playerID, next) => {
   try {
@@ -21,7 +21,17 @@ exports.playerList = async (_, res) => {
 
 exports.createPlayer = async (req, res, next) => {
   try {
-    const newPlayer = await Player.create(req.body);
+    const club = await Club.findOne({
+      where: {
+        name: req.body.club,
+      },
+    });
+    const newPlayer = await Player.create({
+      name: req.body.name,
+      position: req.body.position,
+      age: req.body.age,
+      clubID: club.id,
+    });
     res.status(201).json(newPlayer);
   } catch (error) {
     next(error);
