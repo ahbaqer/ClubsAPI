@@ -6,6 +6,7 @@ const {
   createPlayer,
   deletePlayer,
   updatePlayer,
+  playerById,
 } = require("./controllers");
 
 router.param("playerID", async (req, res, next, playerID) => {
@@ -20,6 +21,7 @@ router.param("playerID", async (req, res, next, playerID) => {
   }
 });
 router.get("/players", playerList);
+router.get("/players/:playerID", playerById);
 router.post("/players", createPlayer);
 router.delete("/players/:playerID", deletePlayer);
 router.put("/players/:playerID", updatePlayer);
