@@ -10,11 +10,7 @@ exports.fetchClub = async (clubID, next) => {
 };
 exports.clubList = async (_, res) => {
   try {
-    console.log(Club);
-    const clubs = await Club.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-    });
-    console.log(clubs);
+    const clubs = await Club.findAll();
     res.json(clubs);
   } catch (error) {
     res.status(500).json("No Clubs Found");

@@ -9,7 +9,7 @@ const {
 } = require("./controllers");
 
 router.param("LeagueID", async (req, res, next, LeagueID) => {
-  const league = await fetchLeague({ LeagueID }, next);
+  const league = await fetchLeague(LeagueID, next);
   if (league) {
     req.league = league;
     next();

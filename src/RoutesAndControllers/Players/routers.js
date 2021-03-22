@@ -9,7 +9,7 @@ const {
 } = require("./controllers");
 
 router.param("playerID", async (req, res, next, playerID) => {
-  const player = await fetchPlayer({ playerID }, next);
+  const player = await fetchPlayer(playerID, next);
   if (player) {
     req.player = player;
     next();

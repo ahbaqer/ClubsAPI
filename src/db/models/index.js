@@ -47,8 +47,9 @@ db.Sequelize = Sequelize;
 db.Club.hasMany(db.Player, {
   foreignKey: "clubID",
 });
-// db.Player.hasOne(db.Club, {
-//   foreignKey: "playerID",
-// });
+db.Player.belongsTo(db.Club, {
+  as: "club",
+  foreignKey: "clubID",
+});
 
 module.exports = db;
