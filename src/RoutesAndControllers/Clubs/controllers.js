@@ -1,4 +1,4 @@
-const { Club } = require("../../db/models");
+const { Club, Player } = require("../../db/models");
 
 exports.fetchClub = async (clubID, next) => {
   try {
@@ -10,7 +10,20 @@ exports.fetchClub = async (clubID, next) => {
 };
 exports.clubList = async (_, res) => {
   try {
+<<<<<<< HEAD
     const clubs = await Club.findAll();
+=======
+    console.log(Club);
+    const clubs = await Club.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: {
+        model: Player,
+        as: "players",
+        attributes: { exclude: ["createdAt", "updatedAt", "clubID"] },
+      },
+    });
+    console.log(clubs);
+>>>>>>> c36e3cfc63dceb8543aee8fbe7fb3418fa559106
     res.json(clubs);
   } catch (error) {
     res.status(500).json("No Clubs Found");

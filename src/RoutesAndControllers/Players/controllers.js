@@ -10,9 +10,38 @@ exports.fetchPlayer = async (playerID, next) => {
 };
 exports.playerList = async (_, res) => {
   try {
-    const players = await Player.findAll();
+    const players = await Player.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt", "clubID"] },
+      include: {
+        model: Club,
+        as: "club",
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "id", "outfitColor", "logo"],
+        },
+      },
+    });
     console.log(players);
     res.json(players);
+  } catch (error) {
+    res.status(500).json("No players Found");
+    console.log("message:", error.message);
+  }
+};
+
+exports.playerById = async (req, res) => {
+  try {
+    const player = await Player.findByPk(req.params.playerID, {
+      attributes: { exclude: ["createdAt", "updatedAt", "clubID"] },
+      include: {
+        model: Club,
+        as: "club",
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "id", "outfitColor", "logo"],
+        },
+      },
+    });
+    console.log(player);
+    res.json(player);
   } catch (error) {
     res.status(500).json("No players Found");
     console.log("message:", error.message);

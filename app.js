@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+//import Database
 const db = require("./src/db/models");
 
 //Routers
@@ -11,7 +13,7 @@ const leagueRoutes = require("./src/RoutesAndControllers/Leagues/routers.js");
 const app = express();
 app.use(express.json());
 app.use(cors());
-
+app.use("/media", express.static(path.join(__dirname, "media")));
 //Router use
 app.use("/", clubRoutes);
 app.use("/", playerRoutes);
