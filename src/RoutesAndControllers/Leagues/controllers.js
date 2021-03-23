@@ -1,8 +1,16 @@
-const { League } = require("../../db/models");
+const { League, Club } = require("../../db/models");
 
 exports.fetchLeague = async (leagueID, next) => {
   try {
-    const foundLeague = await League.findByPk(leagueID);
+    const foundLeague = await League.findByPk(leagueID, {
+      include: [
+        {
+          model: Club,
+          as: "clubs",
+          attributes: ["name"],
+        },
+      ],
+    });
     return foundLeague;
   } catch (error) {
     next(error);
@@ -42,6 +50,13 @@ exports.updateLeague = async (req, res, next) => {
   try {
     await req.league.update(req.body);
     res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+exports.leagueClub = async (req, res, next) => {
+  try {
+    res.json(req.league);
   } catch (error) {
     next(error);
   }

@@ -6,6 +6,7 @@ const {
   createClub,
   deleteClub,
   updateClub,
+  clubLeague,
 } = require("./controllers");
 
 router.param("clubID", async (req, res, next, clubID) => {
@@ -23,5 +24,6 @@ router.get("/clubs", clubList);
 router.post("/clubs", createClub);
 router.delete("/clubs/:clubID", deleteClub);
 router.put("/clubs/:clubID", updateClub);
+router.get("/clubs/:clubID", clubLeague);
 
 module.exports = router;

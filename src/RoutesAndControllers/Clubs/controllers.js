@@ -1,8 +1,16 @@
-const { Club, Player } = require("../../db/models");
+const { Club, League } = require("../../db/models");
 
 exports.fetchClub = async (clubID, next) => {
   try {
-    const foundClub = await Club.findByPk(clubID);
+    const foundClub = await Club.findByPk(clubID, {
+      include: [
+        {
+          model: League,
+          as: "leagues",
+          attributes: ["name"],
+        },
+      ],
+    });
     return foundClub;
   } catch (error) {
     next(error);
@@ -10,20 +18,7 @@ exports.fetchClub = async (clubID, next) => {
 };
 exports.clubList = async (_, res) => {
   try {
-<<<<<<< HEAD
     const clubs = await Club.findAll();
-=======
-    console.log(Club);
-    const clubs = await Club.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-      include: {
-        model: Player,
-        as: "players",
-        attributes: { exclude: ["createdAt", "updatedAt", "clubID"] },
-      },
-    });
-    console.log(clubs);
->>>>>>> c36e3cfc63dceb8543aee8fbe7fb3418fa559106
     res.json(clubs);
   } catch (error) {
     res.status(500).json("No Clubs Found");
@@ -54,6 +49,14 @@ exports.updateClub = async (req, res, next) => {
   try {
     await req.club.update(req.body);
     res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.clubLeague = async (req, res, next) => {
+  try {
+    res.json(req.club);
   } catch (error) {
     next(error);
   }

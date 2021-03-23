@@ -6,10 +6,11 @@ const {
   createLeague,
   deleteLeague,
   updateLeague,
+  leagueClub,
 } = require("./controllers");
 
-router.param("LeagueID", async (req, res, next, LeagueID) => {
-  const league = await fetchLeague(LeagueID, next);
+router.param("leagueID", async (req, res, next, leagueID) => {
+  const league = await fetchLeague(leagueID, next);
   if (league) {
     req.league = league;
     next();
@@ -23,5 +24,6 @@ router.get("/leagues", leagueList);
 router.post("/leagues", createLeague);
 router.delete("/leagues/:leagueID", deleteLeague);
 router.put("/leagues/:leagueID", updateLeague);
+router.get("/leagues/:leagueID", leagueClub);
 
 module.exports = router;

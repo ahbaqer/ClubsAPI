@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "ABaqer87",
+    "username": "Abaqer87",
     "password": null,
     "database": "clubs",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "test": {
     "username": "root",

@@ -46,18 +46,21 @@ db.Sequelize = Sequelize;
 // Databases relations
 db.Club.hasMany(db.Player, {
   foreignKey: "clubID",
-  as: "players",
 });
-db.Player.belongsTo(db.Club, {
-  foreignKey: "clubID",
-  as: "club",
-});
-<<<<<<< HEAD
 db.Player.belongsTo(db.Club, {
   as: "club",
   foreignKey: "clubID",
 });
-=======
->>>>>>> c36e3cfc63dceb8543aee8fbe7fb3418fa559106
 
+db.Club.belongsToMany(db.League, {
+  through: "LeagueClub",
+  as: "leagues",
+  foreignKey: "clubID",
+});
+
+db.League.belongsToMany(db.Club, {
+  through: "LeagueClub",
+  as: "clubs",
+  foreignKey: "leagueID",
+});
 module.exports = db;
