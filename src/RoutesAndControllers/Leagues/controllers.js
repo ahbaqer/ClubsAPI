@@ -18,7 +18,15 @@ exports.fetchLeague = async (leagueID, next) => {
 };
 exports.leagueList = async (_, res) => {
   try {
-    const leagues = await League.findAll();
+    const leagues = await League.findAll({
+      include: [
+        {
+          model: Club,
+          as: "clubs",
+          attributes: ["name"],
+        },
+      ],
+    });
     console.log(leagues);
     res.json(leagues);
   } catch (error) {
@@ -56,6 +64,26 @@ exports.updateLeague = async (req, res, next) => {
 };
 exports.leagueClub = async (req, res, next) => {
   try {
+    res.json(req.league);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addToClub = async (req, res, next) => {
+  try {
+    const newLeague = await League.findByPk(req.league.id);
+    const club = await Club.findByPk(req.club.id);
+    newLeague.addClub(club);
+    res.json(newLeague);
+  } catch (error) {
+    next(error);
+  }
+};
+exports.removeClub = async (req, res, next) => {
+  try {
+    const club = await Club.findByPk(req.club.id);
+    req.league.removeClub(club);
     res.json(req.league);
   } catch (error) {
     next(error);

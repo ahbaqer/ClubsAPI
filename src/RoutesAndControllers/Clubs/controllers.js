@@ -61,3 +61,22 @@ exports.clubLeague = async (req, res, next) => {
     next(error);
   }
 };
+exports.addToLeague = async (req, res, next) => {
+  try {
+    const newClub = await Club.findByPk(req.club.id);
+    const league = await League.findByPk(req.league.id);
+    newClub.addLeague(league);
+    res.json(newClub);
+  } catch (error) {
+    next(error);
+  }
+};
+exports.removeLeague = async (req, res, next) => {
+  try {
+    const league = await League.findByPk(req.league.id);
+    req.club.removeLeague(league);
+    res.json(req.club);
+  } catch (error) {
+    next(error);
+  }
+};
